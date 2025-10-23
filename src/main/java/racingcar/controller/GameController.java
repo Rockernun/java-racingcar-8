@@ -1,0 +1,42 @@
+package racingcar.controller;
+
+import java.util.List;
+import racingcar.model.BasicMoveStrategy;
+import racingcar.model.Car;
+import racingcar.model.MoveStrategy;
+import racingcar.model.Winner;
+import racingcar.service.GameService;
+import racingcar.view.InputView;
+import racingcar.view.OutputView;
+
+public class GameController {
+
+    private InputView inputView;
+    private OutputView outputView;
+    private GameService gameService;
+    private MoveStrategy moveStrategy = new BasicMoveStrategy();
+    private Winner winner = new Winner();
+
+    public GameController(InputView inputView, OutputView outputView, GameService gameService) {
+        this.inputView = inputView;
+        this.outputView = outputView;
+        this.gameService = gameService;
+    }
+
+    public void run() {
+        List<Car> cars = gameService.initCarList(inputView.inputCarNames());
+        int rounds = inputView.inputRounds();
+
+        System.out.println("실행 결과");
+        for (int i = 0; i < rounds; i++) {
+            for (Car car : cars) {
+                car.move();
+                outputView.printProgress(car);
+            }
+
+            System.out.println();
+        }
+
+        outputView.printWinners(winner.selectWinners(cars));
+    }
+}
