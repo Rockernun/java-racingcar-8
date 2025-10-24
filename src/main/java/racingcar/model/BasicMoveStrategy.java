@@ -10,6 +10,6 @@ public class BasicMoveStrategy implements MoveStrategy {
 
     @Override
     public boolean isMove() {
-        return numberGenerator.generateNumber() >= REFERENCE_VALUE;
+        return numberGenerator.generateNumber(MIN_NUMBER, MAX_NUMBER) >= REFERENCE_VALUE;
     }
 }
