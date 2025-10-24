@@ -1,9 +1,7 @@
 package racingcar.controller;
 
 import java.util.List;
-import racingcar.model.BasicMoveStrategy;
 import racingcar.model.Car;
-import racingcar.model.MoveStrategy;
 import racingcar.model.Winner;
 import racingcar.service.GameService;
 import racingcar.view.InputView;
@@ -14,7 +12,6 @@ public class GameController {
     private InputView inputView;
     private OutputView outputView;
     private GameService gameService;
-    private MoveStrategy moveStrategy = new BasicMoveStrategy();
     private Winner winner = new Winner();
 
     public GameController(InputView inputView, OutputView outputView, GameService gameService) {
@@ -37,6 +34,6 @@ public class GameController {
             System.out.println();
         }
 
-        outputView.printWinners(winner.selectWinners(cars));
+        outputView.printWinners(winner.getWinners(cars));
     }
 }
