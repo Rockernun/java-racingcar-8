@@ -15,6 +15,10 @@ public class Winner {
             }
         }
 
+        if (max == 0) {
+            throw new IllegalStateException("어떤 자동차도 전진하지 않으면, 우승자를 선정할 수 없습니다. 게임을 다시 진행해주세요.");
+        }
+
         return max;
     }
 
