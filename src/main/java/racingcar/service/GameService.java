@@ -1,7 +1,9 @@
 package racingcar.service;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import racingcar.model.Car;
 import racingcar.model.MoveStrategy;
 
@@ -24,19 +26,22 @@ public class GameService {
         return carNames;
     }
 
-    public List<Car> initCarList(String input) {
-        if (input.isEmpty()) {
-            throw new IllegalArgumentException("자동차를 1대 이상 입력해야 합니다.");
+    private List<String> validateDuplicateCarName(String input) {
+        Set<String> set = new LinkedHashSet<>();
+        for (String name : parseCarNames(input)) {
+            if (!set.add(name)) {
+                throw new IllegalArgumentException("차 이름이 중복되었습니다.");
+            }
         }
 
-        List<String> nameList = parseCarNames(input);
+        return new ArrayList<>(set);
+    }
+
+    public List<Car> initCarList(String input) {
+        List<String> nameList = validateDuplicateCarName(input);
         List<Car> carList = new ArrayList<>();
 
         for (String name : nameList) {
-            if (name.length() > 5) {
-                throw new IllegalArgumentException("자동차 이름은 5자 이하만 가능합니다.");
-            }
-
             carList.add(new Car(name, 0, moveStrategy));
         }
 
