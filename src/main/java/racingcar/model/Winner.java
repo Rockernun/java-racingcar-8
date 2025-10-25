@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Winner {
 
-    private List<String> winners = new ArrayList<>();
+    private final List<String> winners = new ArrayList<>();
 
     private int findLargestPosition(List<Car> cars) {
         int max = 0;
