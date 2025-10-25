@@ -9,10 +9,10 @@ import racingcar.view.OutputView;
 
 public class GameController {
 
-    private InputView inputView;
-    private OutputView outputView;
-    private GameService gameService;
-    private Winner winner = new Winner();
+    private final InputView inputView;
+    private final OutputView outputView;
+    private final GameService gameService;
+    private final Winner winner = new Winner();
 
     public GameController(InputView inputView, OutputView outputView, GameService gameService) {
         this.inputView = inputView;
