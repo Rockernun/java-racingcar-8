@@ -22,7 +22,7 @@ public class GameController {
 
     public void run() {
         List<Car> cars = gameService.initCarList(inputView.inputCarNames());
-        int rounds = Integer.parseInt(inputView.inputRounds());
+        int rounds = gameService.parseRounds(inputView.inputRounds());
 
         System.out.println("실행 결과");
         for (int i = 0; i < rounds; i++) {
