@@ -13,14 +13,31 @@ public class GameService {
         this.moveStrategy = moveStrategy;
     }
 
-    public List<Car> initCarList(String input) {
+    private List<String> parseCarNames(String input) {
+        List<String> carNames = new ArrayList<>();
         String[] split = input.split(",");
-        List<Car> carList = new ArrayList<>();
+
         for (String s : split) {
-            if (s.length() > 5) {
+            carNames.add(s);
+        }
+
+        return carNames;
+    }
+
+    public List<Car> initCarList(String input) {
+        if (input.isEmpty()) {
+            throw new IllegalArgumentException("자동차를 1대 이상 입력해야 합니다.");
+        }
+
+        List<String> nameList = parseCarNames(input);
+        List<Car> carList = new ArrayList<>();
+
+        for (String name : nameList) {
+            if (name.length() > 5) {
                 throw new IllegalArgumentException("자동차 이름은 5자 이하만 가능합니다.");
             }
-            carList.add(new Car(s, 0, moveStrategy));
+
+            carList.add(new Car(name, 0, moveStrategy));
         }
 
         return carList;
