@@ -6,7 +6,11 @@ public class BasicMoveStrategy implements MoveStrategy {
     private static final int MAX_NUMBER = 9;
     private static final int REFERENCE_VALUE = 4;
 
-    private final NumberGenerator numberGenerator = new NumberGenerator();
+    private final NumberGenerator numberGenerator;
+
+    public BasicMoveStrategy(NumberGenerator numberGenerator) {
+        this.numberGenerator = numberGenerator;
+    }
 
     @Override
     public boolean isMove() {
