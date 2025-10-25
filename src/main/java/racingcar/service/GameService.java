@@ -17,10 +17,11 @@ public class GameService {
 
     private List<String> parseCarNames(String input) {
         List<String> carNames = new ArrayList<>();
-        String[] split = input.split(",");
-
-        for (String s : split) {
-            carNames.add(s);
+        for (String s : input.split(",")) {
+            String name = s.trim();
+            if (!name.isEmpty()) {
+                carNames.add(name);
+            }
         }
 
         return carNames;
@@ -35,6 +36,19 @@ public class GameService {
         }
 
         return new ArrayList<>(set);
+    }
+
+    public int parseRounds(String input) {
+        String trim = input.trim();
+        try {
+            int round = Integer.parseInt(trim);
+            if (round <= 0) {
+                throw new IllegalArgumentException("시도 횟수는 양수만 입력 가능합니다.");
+            }
+            return round;
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("시도 횟수는 숫자만 입력 가능합니다.");
+        }
     }
 
     public List<Car> initCarList(String input) {
