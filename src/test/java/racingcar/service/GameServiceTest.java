@@ -27,14 +27,14 @@ class GameServiceTest {
 
     @Test
     void 시도횟수_숫자() {
-        GameService gameService = new GameService(() -> false);
         assertSimpleTest(() -> {
-            assertThatThrownBy(() -> gameService.parseRounds("rockernun"))
-                    .isInstanceOf(IllegalArgumentException.class);
-            assertThatThrownBy(() -> gameService.parseRounds("a1b2c3"))
-                    .isInstanceOf(IllegalArgumentException.class);
-            assertThatThrownBy(() -> gameService.parseRounds(" "))
-                    .isInstanceOf(IllegalArgumentException.class);
+            GameService gameService = new GameService(() -> false);
+            assertThatThrownBy(() -> gameService.validateRoundIsPositive("rockernun"))
+                    .isInstanceOf(NumberFormatException.class);
+            assertThatThrownBy(() -> gameService.validateRoundIsPositive("a1b2c3"))
+                    .isInstanceOf(NumberFormatException.class);
+            assertThatThrownBy(() -> gameService.validateRoundIsPositive(" "))
+                    .isInstanceOf(NumberFormatException.class);
         });
     }
 
@@ -42,9 +42,9 @@ class GameServiceTest {
     void 시도횟수_양수() {
         GameService gameService = new GameService(() -> false);
         assertSimpleTest(() -> {
-            assertThatThrownBy(() -> gameService.parseRounds("0"))
+            assertThatThrownBy(() -> gameService.validateRoundIsPositive("0"))
                     .isInstanceOf(IllegalArgumentException.class);
-            assertThatThrownBy(() -> gameService.parseRounds("-1"))
+            assertThatThrownBy(() -> gameService.validateRoundIsPositive("-1"))
                     .isInstanceOf(IllegalArgumentException.class);
         });
     }
