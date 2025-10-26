@@ -38,17 +38,22 @@ public class GameService {
         return new ArrayList<>(set);
     }
 
-    public int parseRounds(String input) {
+    private int validateRoundIsInteger(String input) {
         String trim = input.trim();
-        try {
-            int round = Integer.parseInt(trim);
-            if (round <= 0) {
-                throw new IllegalArgumentException("시도 횟수는 양수만 입력 가능합니다.");
-            }
-            return round;
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("시도 횟수는 숫자만 입력 가능합니다.");
+        if (!trim.matches("[0-9]+$")) {
+            throw new NumberFormatException("시도 횟수는 숫자만 입력 가능합니다.");
         }
+
+        return Integer.parseInt(trim);
+    }
+
+    public int validateRoundIsPositive(String input) {
+        int round = validateRoundIsInteger(input);
+        if (round <= 0) {
+            throw new IllegalArgumentException("시도 횟수는 양수만 입력 가능합니다.");
+        }
+
+        return round;
     }
 
     public List<Car> initCarList(String input) {
